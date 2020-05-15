@@ -1,0 +1,37 @@
+Pipeline as Code describes a set of features that allow Jenkins users to define pipelined job processes with code, stored and versioned in a source repository. These features allow Jenkins to discover, manage, and run jobs for multiple source repositories and branches — eliminating the need for manual job creation and management.
+
+To use Pipeline as Code, projects must contain a file named Jenkinsfile in the repository root, which contains a "Pipeline script."
+
+Additionally, one of the enabling jobs needs to be configured in Jenkins:
+
+Multibranch Pipeline: build multiple branches of a single repository automatically
+
+Organization Folders: scan a GitHub Organization or Bitbucket Team to discover an organization’s repositories, automatically creating managed Multibranch Pipeline jobs for them
+
+Pipeline: Regular Pipeline jobs have an option when specifying the pipeline to "Use SCM".
+
+Fundamentally, an organization’s repositories can be viewed as a hierarchy, where each repository may have child elements of branches and pull requests.
+
+Example Repository Structure
++--- GitHub Organization
+    +--- Project 1
+        +--- master
+        +--- feature-branch-a
+        +--- feature-branch-b
+    +--- Project 2
+        +--- master
+        +--- pull-request-1
+        +--- etc...
+Prior to _Multibranch Pipeline_ jobs and _Organization Folders_,
+plugin:cloudbees-folder[Folders]
+could be used to create this hierarchy in Jenkins by organizing repositories
+into folders containing jobs for each individual branch.
+Multibranch Pipeline and Organization Folders eliminate the manual process by detecting branches and repositories, respectively, and creating appropriate folders with jobs in Jenkins automatically.
+
+The Jenkinsfile
+Presence of the Jenkinsfile in the root of a repository makes it eligible for Jenkins to automatically manage and execute jobs based on repository branches.
+
+The Jenkinsfile should contain a Pipeline script, specifying the steps to execute the job. The script has all the power of Pipeline available, from something as simple as invoking a Maven builder, to a series of interdependent steps, which have coordinated parallel execution with deployment and validation phases.
+
+A simple way to get started with Pipeline is to use the Snippet Generator available in the configuration screen for a Jenkins Pipeline job. Using the Snippet Generator, you can create a Pipeline script as you might through the dropdowns in other Jenkins jobs.
+
